@@ -3,7 +3,6 @@
 NumPy：（Numerical Python）是目前Python数值计算中最为重要的基础包
     ndarray，一种高效多维数组，提供了基于数组的便捷算术操作以及灵活的广播
 
-
 1、NumPy ndarray: 多维数组对象
 2、通用函数：快速的逐元素数组函数
 3、使用数组进行面向数组编程
@@ -12,4 +11,5 @@ NumPy：（Numerical Python）是目前Python数值计算中最为重要的基�
 6、伪随机数生成
 7、示例：随机漫步
 8、本章小结
+9、
 """
