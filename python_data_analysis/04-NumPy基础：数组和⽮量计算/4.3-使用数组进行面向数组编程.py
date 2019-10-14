@@ -86,10 +86,30 @@ cumsum：从0开始元素累积和
 cumprod：从1开始元素累积积
 """
 
-
 # 4.3.3 布尔值数组的方法
+print("\nsum可以用于计算布尔数组中的True的个数")
+arr = np.random.randn(100)
+# pprint(arr)
+print((arr > 0).sum())
+
+# 布尔数组方法
+print("\nany检查数组中是否至少有一个True")
+bools = np.array([False, False, True, False])
+print(bools.any())
+print("\nall检查是否每个值都是True")
+print(bools.all())
+# 这些方法也可适用于非布尔数组，所有的非0元素都会按True处理
 
 # 4.3.4 排序
+print("\nsort方法按位置排序")
+arr = np.random.randn(6)
+pprint(arr)
+arr.sort()
+pprint(arr)
+
+# 在多维数组中根据传递的axis值，沿着轴向对每个一维数据进行排序
+
+
 
 # 4.3.5 唯一值与其他集合逻辑
 
