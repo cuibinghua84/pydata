@@ -107,9 +107,38 @@ pprint(arr)
 arr.sort()
 pprint(arr)
 
-# 在多维数组中根据传递的axis值，沿着轴向对每个一维数据进行排序
+print("\n在多维数组中根据传递的axis值，沿着轴向对每个一维数据进行排序")
+arr = np.random.randn(5, 4)
+pprint(arr)
+arr.sort(1) # 返回的是已经排序好的数组拷贝，而不是对原数组按位置排序
+pprint(arr)
 
+print("\n计算数组的分位数，并选出分位数所对应的的值")
+large_arr = np.random.randn(1000)
+large_arr.sort()
+print(large_arr[int(0.05 * len(large_arr))])
 
 
 # 4.3.5 唯一值与其他集合逻辑
+print("\nnp.unique，返回的是数组中唯一值排序后形成的数组")
+names = np.array(['Bob', 'Joe', 'Will', 'Bob', 'Will', 'Joe', 'Joe'])
+pprint(np.unique(names))
+ints = np.array([3, 3, 3, 2, 2, 1, 1, 4, 4])
+pprint(np.unique(ints))
+
+print("\nnp.unique和存Python实现相比较")
+print(sorted(set(names)))
+
+print("\nnpin1d,检查一个数组中的值是否在另外一个数组中，并返回一个布尔值数组")
+values = np.array([6, 0, 0, 3, 2, 5, 6])
+pprint(np.in1d(values, [2, 3, 6]))
+"""
+数组的集合操作
+unique(x) 计算x的唯一值，并排序
+intersect1d(x, y) 计算x和y的交集，并排序
+union1d(x, y) 计算x和y的并集，并排序
+in1d(x, y) 计算x中的元素是否包含在y中，返回一个布尔值数组
+setdiff1d(x, y) 差集，在x中但不在y中的x的元素
+setxor1d(x, y) 异或集，在x或y中，但不属于x，交集的元素
+"""
 
