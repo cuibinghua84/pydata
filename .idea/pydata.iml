@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
+<<<<<<< HEAD
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/python_zero_big_data" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_zero_big_data(2)/24-Python-文件操作-综合案例/files" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/11-第十一天" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/12-第十二天" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/12-第十二天/02/TestMsg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/12-第十二天/02" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/Python基础教程(第3版)/第20章 项目1：自动添加标签" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_spider_base/北理工Python网络爬虫与信息提取" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_crash_course/08 函数" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_crash_course/09 类" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_crash_course/11 测试代码" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_spider_base/从零开始学爬虫/第05章 Lxml库与Xpath语法" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/python_crash_course(入门到实践)/09 类" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/python_crash_course(入门到实践)/10 文件和异常" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_zero_big_data(3)/08-Python-面向对象-补充-属性相关" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_zero_big_data(3)" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/python_crash_course(入门到实践)/11 测试代码" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/python_crash_course(入门到实践)/15 生成数据" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_base/python_crash_course(入门到实践)/16 下载数据" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.7 (pydata)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="learning_log" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/python_zero_big_data" />
+      </list>
+    </option>
+=======
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -8,5 +43,6 @@
   <component name="TestRunnerService">
     <option name="projectConfiguration" value="pytest" />
     <option name="PROJECT_TEST_RUNNER" value="pytest" />
+>>>>>>> origin/master
   </component>
 </module>
