@@ -304,6 +304,3 @@ print("\n")
 df = pd.DataFrame(np.random.randn(4, 3), index=['a', 'a', 'b', 'b'])
 print(df)
 print(df.loc['b'])
-
-# print("\n")
-
