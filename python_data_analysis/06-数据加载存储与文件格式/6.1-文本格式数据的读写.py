@@ -9,8 +9,9 @@ import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
 from pprint import pprint
-
-
+import sys
+import csv
+import json
 
 """输入和输出通常有以下几种类型：
 读取文本文件及硬盘上其他更高效的格式文件
@@ -42,6 +43,7 @@ read_feather	读取Feather二进制格式
 未清洗数据问题：跳过行、页脚、注释以及其他次要数据"""
 
 print("read_csv读取逗号分隔的文件")
+path = 'D:/data/pydata_book2/examples/'
 path_1 = "D:/data/pydata_book2/examples/ex2.csv"
 
 print("\n默认列名")
@@ -98,19 +100,127 @@ parse_dates 		尝试将数据解析为datetime，默认是False。如果为True�
 					，如果列表的元素是元组或列表，将会把多个列组合在一起进行解析（例如日期/时间将拆分为两列）
 keep_data_col 		如果连接类到解析日期上，保留被连接的列，默认是False
 converters 			包含列名称映射到函数的字典（例如{'foo': f}会把函数f应用到'foo'列）
-dayfirst 			解析非明确日期时，按照国际格式处理(例如 7/6/2012->June,7,2012)，默认为False"""
-
-
-
+dayfirst 			解析非明确日期时，按照国际格式处理(例如 7/6/2012->June,7,2012)，默认为False
+"""
 
 # 6.1.1 分块读入文本文件
+pd.options.display.max_rows = 10
+result = pd.read_csv('D:/data/pydata_book2/examples/ex6.csv')
+pprint(result)
 
+print("\n只读取一小部分")
+pprint(pd.read_csv('D:/data/pydata_book2/examples/ex6.csv', nrows=5))
+
+print("\n分块读入，指定每一快的行数")
+chunker = pd.read_csv('D:/data/pydata_book2/examples/ex6.csv', chunksize=1000)
+pprint(chunker)
+
+print("\n遍历ex6.csv，并对'key'列聚合获得计数值")
+chunker = pd.read_csv('D:/data/pydata_book2/examples/ex6.csv', chunksize=1000)
+tot = pd.Series([])
+for piece in chunker:
+	tot = tot.add(piece['key'].value_counts(), fill_value=0)
+tot = tot.sort_values(ascending=False)
+pprint(tot[:10])
+
+print("\n按照任意大小读取数据块")
 
 # 6.1.2 将数据写入文本文件
+print("\n数据可以导出为分隔的形式")
+data = pd.read_csv('D:/data/pydata_book2/examples/ex5.csv')
+pprint(data)
+print("\n使用DataFrame的to_csv方法，将数据导出为逗号分隔的文件")
+data.to_csv('D:/data/pydata_book2/examples/out.csv')
+# pprint(data.to_csv(sys.stdout, sep='|'))
+
+print("\n用其他值对缺失值进行标注")
+pprint(data.to_csv(sys.stdout, na_rep='NULL'))
+
+print("\n如没其他选项指定，行和列的标签会被写入，也可禁止写入")
+pprint(data.to_csv(sys.stdout, index=False, header=False))
+
+print("\n也可写入列的子集，可选择顺序")
+pprint(data.to_csv(sys.stdout, index=False, columns=['a', 'b', 'c']))
+
+print("\nSeries的to_csv方法")
+# dates = pd.date_range('10/28/2000', periods=7)
+# pprint(dates)
+# ts = pd.Series(np.arange(7), index=dates)
+# pprint(ts)
+# ts.to_csv("D:/data/pydata_book2/examples/tseries.csv")
 
 # 6.1.3 使用分隔格式
+print("\n使用分隔格式")
+f = open('D:/data/pydata_book2/examples/ex7.csv')
+reader = csv.reader(f)
+# pprint(reader)
+# 遍历reader元组
+for line in reader:
+	print(line)
+
+print("\n按需整理数据")
+# 将文件读取为行的列表
+with open('D:/data/pydata_book2/examples/ex7.csv') as f:
+	lines = list(csv.reader(f))
+# 将数据拆分为列名行和数据行
+header, values = lines[0], lines[1:]
+# 生成一个包含数据列的字典，字典中行转置成列
+data_dict = {h: v for h, v in zip(header, zip(*values))}
+pprint(data_dict)
+
+print("\n定义子类")
+# class my_dialect(csv.Dialect):
+# 	lineterminator = '\n'
+# 	delimiter = ';'
+# 	quotechar = '"'
+# 	quoting = csv.QUOTE_MINIMAL
+# reader = csv.reader(f, dialect=my_dialect)
+
+# 也可以不定义子类
+# reader = csv.reader(f, delimiter='|')
+
+"""csv.Dialect中的一些属性及其用途
+delimiter		一个用户分隔字段的字符，默认是','
+lineterminator 	行终止符，默认是'\r\n'，读取器会忽略行终止符并识别跨平台行终止符
+quotechar 		
+quoting
+skipinitialspace
+doublequto
+escapechar
+"""
 
 # 6.1.4 JSON数据
+print("\nJSON数据")
+obj = """
+{"name": "Wes",
+ "places_lived": ["United States", "Spain", "Germany"],
+ "pet": null,
+ "siblings": [{"name": "Scott", "age": 30, "pets": ["Zeus", "Zuko"]},
+ 	{"name": "Katie", "age": 38,
+ 	 "pets": ["Sixes", "Stache", "Cisco"]}
+]}
+"""
+print("\n将JSON字符串转换为Python形式，使用json.loads方法")
+# print(obj)
+result = json.loads(obj)
+pprint(result)
+
+print("\n将Python对象转换回JSON")
+asjson = json.dumps(result)
+pprint(asjson)
+
+print("\n将字典构成的列表，传入DataFrame构造函数，并选出数据字段的子集")
+siblings = pd.DataFrame(result['siblings'], columns=['name', 'age'])
+pprint(siblings)
+
+print("\n将JSON数据集按照指定次序转换为Series或DataFrame")
+data = pd.read_json('D:/data/pydata_book2/examples/example.json')
+pprint(data)
+
+print("\n从pandas中将数据导出为JSON，方法是对Series和DataFrame使用to_json方法")
+pprint(data.to_json())
+pprint(data.to_json(orient='records'))
+
 
 # 6.1.5 XML和HTML：网络抓取
 
