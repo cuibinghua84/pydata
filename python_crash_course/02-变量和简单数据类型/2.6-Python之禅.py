@@ -4,3 +4,5 @@
 @file: 2.6-Python之禅.py
 @time: 2019/10/30 10:56
 """
+
+import this
