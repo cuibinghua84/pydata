@@ -32,19 +32,19 @@ print(data.drop_duplicates(['k1']))
 print()
 print(data.drop_duplicates(['k1', 'k2'], keep='last'))
 
-
 # 7.2.2 使用函数或映射进行数据转换
 print()
-data = pd.DataFrame({'food': ['bacon', 'pulled pork', 'bacon', 'Pastrami', 'corned beef', 'Bacon', 'pastrami', 'honey ham', 'nova lox'],
-					 'ounces': [4, 3, 12, 6, 7.5, 8, 3, 5, 6]})
+data = pd.DataFrame(
+    {'food': ['bacon', 'pulled pork', 'bacon', 'Pastrami', 'corned beef', 'Bacon', 'pastrami', 'honey ham', 'nova lox'],
+     'ounces': [4, 3, 12, 6, 7.5, 8, 3, 5, 6]})
 print(data)
 meat_to_animal = {
-	'bacon': 'pig',
-	'pulled pork': 'pig',
-	'pastrami': 'cow',
-	'corned beef': 'cow',
-	'honey ham': 'pig',
-	'nova lox': 'salmon'
+    'bacon': 'pig',
+    'pulled pork': 'pig',
+    'pastrami': 'cow',
+    'corned beef': 'cow',
+    'honey ham': 'pig',
+    'nova lox': 'salmon'
 }
 print()
 lowercased = data['food'].str.lower()
@@ -72,16 +72,28 @@ print(data.replace({-999: np.nan, -1000: 0}))
 
 # 7.2.4 重命名轴索引
 print()
+data = pd.DataFrame(np.arange(12).reshape((3, 4)), index=['Ohio', 'Colorado', 'New York'],
+                    columns=['one', 'two', 'three', 'four'])
+transform = lambda x: x[:4].upper()
+print(data.index.map(transform))
+
 print()
+data.index = data.index.map(transform)
+print(data)
+
 print()
+print(data.rename(index=str.title, columns=str.upper))
+
 print()
+print(data.rename(index={'OHIO': 'INDIANA'}, columns={'three': 'peekaboo'}))
+
 print()
-print()
-print()
+data.rename(index={'OHIO': 'INDIANA'}, inplace=True)
+print(data)
 # 7.2.5 离散化和分箱
 
-# 7.2.6 检测和过滤异常值
+# 7.2.6-检测和过滤异常值
 
-# 7.2.7 置换和随机抽样
+# 7.2.7-置换和随机抽样
 
-# 7.2.8 计算指标/虚拟变量
+# 7.2.8-计算指标/虚拟变量
