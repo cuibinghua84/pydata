@@ -31,10 +31,24 @@ for name in favorite_languages.keys():
 	print(name.title())
 
 print("*" * 50)
+friends = ['phil', 'sarah']
+for name in favorite_languages.keys():
+	print(name.title())
+	if name in friends:
+		print("	Hi " + name.title() + ", I see your favorite language is " + favorite_languages[name].title() + "!")
 
+print("*" * 50)
+if 'erin' not in favorite_languages.keys():
+	print("Erin, please take our poll!")
 
 # 6.3.3 按顺序遍历字典中的所有键
 print("*" * 50)
+for name in sorted(favorite_languages.keys()):
+	print(name.title() + ", thank you for taking the poll.")
+
 
 # 6.3.4 遍历字典中的所有值
 print("*" * 50)
+print("The follwing languages have been mentioned: ")
+for language in set(favorite_languages.values()):
+	print(language.title())
