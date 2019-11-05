@@ -69,13 +69,38 @@ indicator
 """
 
 # 8.2.2 根据索引合并
-# print("*" * 30)
-# print("*" * 30)
-# print("*" * 30)
-# print("*" * 30)
-# print("*" * 30)
-# print("*" * 30)
-# print("*" * 30)
+print("*" * 30)
+left1 = pd.DataFrame({'key': ['a', 'b', 'a', 'a', 'b', 'c'], 'value': range(6)})
+right1 = pd.DataFrame({'group_val': [3.5, 7]}, index=['a', 'b'])
+print(left1)
+print(right1)
+print(pd.merge(left1, right1, left_on='key', right_index=True))
+
+print("*" * 30)
+print(pd.merge(left1, right1, left_on='key', right_index=True, how='outer'))
+
+print("*" * 30)
+lefth = pd.DataFrame({'key1': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada'], 'key2': [2000, 2001, 2002, 2001, 2002], 'data': np.arange(5.)})
+righth = pd.DataFrame(np.arange(12).reshape((6, 2)), 
+		index=[['Nevada', 'Nevada', 'Ohio', 'Ohio', 'Ohio', 'Ohio'], [2001, 2000, 2000, 2000, 2001, 2002]],
+		columns=['event1', 'event2'])
+print(lefth)
+print(righth)
+
+print("*" * 30)
+print(pd.merge(lefth, righth, left_on=['key1', 'key2'], right_index=True))
+
+print("*" * 30)
+print(pd.merge(lefth, righth, left_on=['key1', 'key2'], right_index=True, how='outer'))
+
+print("*" * 30)
+left2 = pd.DataFrame([[1., 2.], [3., 4.], [5., 6.]], index=['a', 'c', 'e'], columns=['Ohio', 'Nevada'])
+right2 = pd.DataFrame([[7., 8.], [9., 10.], [11., 12.], [13., 14.]], index=['b', 'c', 'd', 'e'], columns=['Missouri', 'Alabama'])
+print(left2)
+print(right2)
+
+print("*" * 30)
+
 
 # 8.2.3 沿轴向连接
 # print("*" * 30)
