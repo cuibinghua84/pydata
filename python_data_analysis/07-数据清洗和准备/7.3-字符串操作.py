@@ -6,11 +6,62 @@
 """
 
 # 7.3.1 字符串对象方法
+val = 'a, b, guido'
+print(val.split(','))
+
+print("*" * 60)
+pieces = [x.strip() for x in val.split(',')]
+print(pieces)
+
+print("*" * 60)
+first, second, third = pieces
+print(first + '::' + second + "::" + third)
+print('::'.join(pieces))
+
+print("*" * 60)
+# find和index的区别在于index在字符串没有找到时会抛出一个异常
+print('guido' in val)
+print(val.index(','))
+print(val.find(":"))
+
+print("*" * 60)
+print(val.count(","))
+
+print("*" * 60)
+print(val.replace(',', '::'))
+print(val.replace(',', ''))
+
+"""
+python内建字符串方法
+count
+endswith
+startswith
+join
+index
+find
+rfind
+replace
+strip,rstrip,lstrip
+split
+lower
+upper
+casefold
+ljust,rjust
+"""
+
 
 # 7.3.2 正则表达式
+"""
+正则表达式方法
+findall
+finditer
+match
+search
+split
+sub,subn
+"""
 
 # 7.3.3 pandas中的向量化字符串函数
-
 """pandas更多字符串方法
 cat 		根据可选的分隔符按元素粘合字符串
 contains 	返回是否含有某个模式/正则表达式的布尔值数组

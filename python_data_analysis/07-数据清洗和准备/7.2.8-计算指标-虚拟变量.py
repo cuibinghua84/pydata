@@ -21,3 +21,20 @@ dummies = pd.get_dummies(df['key'], prefix='key')
 df_with_dummy = df[['data1']].join(dummies)
 print(df_with_dummy)
 
+print("*" * 50)
+mnames = ['movid_id', 'title', 'genres']
+movies = pd.read_csv('D:/data/pydata_book2/datasets/movielens/movies.dat', sep='::', header=None, names=mnames, engine='python')
+pprint(movies[:10])
+print("*" * 50)
+all_genres = []
+for x in movies.genres:
+    all_genres.extend(x.split('|'))
+genres = pd.unique(all_genres)
+pprint(genres)
+
+print("*" * 70)
+zero_matrix = np.zeros((len(movies), len(genres)))
+dummies = pd.DataFrame(zero_matrix, columns=genres)
+gen = movies.genres[0]
+pprint(gen.split('|'))
+pprint(dummies.columns.get_indexer(gen.split('|')))
