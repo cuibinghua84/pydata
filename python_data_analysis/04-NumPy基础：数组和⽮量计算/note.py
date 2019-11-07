@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+import numpy as np
+from pprint import pprint
+
 """
 NumPy：（Numerical Python）是目前Python数值计算中最为重要的基础包
     ndarray，一种高效多维数组，提供了基于数组的便捷算术操作以及灵活的广播功能
@@ -33,8 +37,16 @@ NumPy的重要性
 import numpy as np
 from pprint import pprint
 
-my_arr = np.array(1000000)
-my_list = list(range(1000000))
+
+"""
+1 NumPy本身并不提供建模和科学函数，理解NumPy的数组以及基于数组的计算将帮助你更高效地使用基于数组的工具
+2 NumPy其一重要的原因：它的设计对于含有大量数组的数据非常有效
+3 NumPy在内部将数据存储在连续的内存卡上，这与其他的Python内建数据结构是不同的
+4 NumPy可以针对全量数组进行复杂计算而不需要写Python循环
+"""
+
+# my_arr = np.array(1000000)
+# my_list = list(range(1000000))
 
 """
 %time for _ in range(10): my_arr2 = my_arr * 2
@@ -42,6 +54,27 @@ Wall time: 0 ns
 %time for _ in range(10): my_list2 = [x * 2 for x in my_list]
 Wall time: 1.85 s
 """
+
+# 4.1 NumPy ndarray：多维数组对象
+
+# 5 ndarray是Python中一个快速、灵活的大型数据集容器。数组允许你使用类似于标量的操作语法在整块数据上进行数学计算
+data = np.random.randn(2, 3)
+# pprint(data)
+# pprint(data * 10)
+# print(data + data)
+
+# 6 一个ndarray是一个通用的多维同类数据容器（包含的每一个元素均为相同类型）
+# 7 每一个数组都有一个shape属性，用来表征数组每一维度的数量；每一个数组都有一个dtype属性，用来描述数组的数据类型
+print(data.shape)
+print(data.dtype)
+
+# 4.1.1 生成ndarray
+# 8 生成数组最简单的方式就是使用array函数
+
+data1 = [6, 7.5, 8, 0, 1]
+arr1 = np.array(data1)
+print(arr1)
+
 
 
 
