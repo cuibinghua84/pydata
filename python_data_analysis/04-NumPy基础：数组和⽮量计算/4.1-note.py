@@ -253,8 +253,69 @@ names = np.array(['Bob', 'Joe', 'Will', 'Bob', 'Will', 'Joe', 'Joe'])
 pprint(names)
 data = np.random.randn(7, 4)
 pprint(data)
+pprint(names)
+
+# 数组的比较也可以向量化
+pprint(names == 'Bob')
+
+# 索引数组时可以传入布尔值数组
+pprint(data[names == 'Bob'])
+
+# 布尔值数组的长度必须和数组轴索引长度一致
+print("*" * 40) 
+pprint(data[names == 'Bob', 2:])
+pprint(data[names == 'Bob', 3])
+
+# 选择其他数据:可以使用!=或在条件表达式使用~对条件取反
+print("*" * 40) 
+print(names != 'Bob')
+print(data[~(names == 'Bob')])
+
+# ~符号可以在你想要对一个通用条件进行取反时使用
+print("*" * 40) 
+cond = names == 'Bob'
+print(data[~cond])
+
+# 选择三个名字中的两个时，可以对多个布尔值条件进行联合，使用&(and) 和 or
+
+print("*" * 40) 
+pprint(names)
+mask = (names == 'Bob') | (names == 'Will')
+pprint(mask)
+pprint(data[mask])
+
+# 使用布尔值索引选择数据时，总是生成数据的拷贝，即使返回的数组并没有任何变化
+# 常识来设置布尔值数组的值
+print("*" * 40) 
+data[data < 0] = 0
+pprint(data)
+
+# 利用一维布尔值数组对每一行设置数值
+print("*" * 50) 
+# pprint(names)
+data[names != 'Joe'] = 7
+pprint(data)
 
 # 4.1.6 神奇索引
+# 术语：用于描述使用整数数据进行数据索引
+print("*" * 40)
+arr = np.empty((8, 4))
+# pprint(arr)
+for i in range(8):
+    arr[i] = i
+pprint(arr)
+
+# 传递列表或数组
+pprint(arr[[4, 3, 0, 6]])
+
+# 传递负数索引
+pprint(arr[[-3, -5, -7]])
+
+# 传递多个索引数组时的情况：会根据每个索引元组对应的元素选出一个一维数组
+print("*" * 40) 
+arr = np.arange(32).reshape((8, 4))
+pprint(arr)
+
 
 # 4.1.7 数组转置和换轴
 
