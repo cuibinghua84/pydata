@@ -316,8 +316,33 @@ print("*" * 40)
 arr = np.arange(32).reshape((8, 4))
 pprint(arr)
 
+print("*" * 40) 
+pprint(arr[[1, 5, 7, 2]][:, [0, 3, 1, 2]])
+
 
 # 4.1.7 数组转置和换轴
+print("*" * 40) 
+# 返回的是底层数据的视图而不需要复制任何内容
+# 数组拥有transpose方法，也有特殊的T属性
+arr = np.arange(15).reshape((3, 5))
+pprint(arr)
+pprint(arr.T)
+pprint(arr)
 
+print("*" * 40) 
+# 计算矩阵内积会使用np.dot
+arr = np.random.randn(6, 3)
+pprint(arr)
+pprint(np.dot(arr.T, arr))
 
+# 更高维的数组操作，transpose方法可以接收包含轴编号的元组，用于置换轴
+print("*" * 40) 
+arr = np.arange(16).reshape((2, 2, 4))
+pprint(arr)
+pprint(arr.transpose((1, 0, 2)))
 
+# ndarray的swapaxes方法，接收一对轴编号作为参数，并对轴进行调整用于重组数据
+# swapaxes返回的是数据的视图，而没有对数据进行复制
+pprint(arr)
+pprint(arr.swapaxes(1, 2))
+print("*" * 40) 
