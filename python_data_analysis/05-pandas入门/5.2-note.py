@@ -196,9 +196,122 @@ pow,rpow 幂次方
 """
 
 # 5.2.5.2 DataFrame和Series间的操作
+print("*" * 40)
+# 运用到了广播机制
+arr = np.arange(12.).reshape((3, 4))
+pprint(arr)
+pprint(arr[0])
+pprint(arr - arr[0])
+
+# DataFrame和Series之间操作是类似的
+print("*" * 40)
+frame = pd.DataFrame(np.arange(12.).reshape((4, 3)), columns=list('bde'), index=['Utah', 'Ohio', 'Texas', 'Oregon'])
+series = frame.iloc[0]
+pprint(frame)
+pprint(series)
+
+# 广播到行
+print("*" * 40)
+print(frame - series)
+
+# 重建索引并形成联合
+print("*" * 40)
+series2 = pd.Series(range(3), index=['b', 'e', 'f'])
+print(frame +series2)
+
+# 改为列上进行广播
+print("*" * 40)
+series3 = frame['d']
+print(frame)
+print(series3)
+print(frame.sub(series3, axis='index'))
 
 # 5.2.6 函数应用和映射
+print("*" * 40)
+frame = pd.DataFrame(np.random.randn(4, 3), columns=list('bde'), index=['Utah', 'Ohio', 'Texas', 'Oregon'])
+print(frame)
+print(np.abs(frame))
+
+print("*" * 40)
+f = lambda x: x.max() - x.min()
+print(frame.apply(f))
+
+print("*" * 40)
+print(frame.apply(f, axis='columns'))
+
+print("*" * 40)
+def f(x):
+    return pd.Series([x.min(), x.max()], index=['min', 'max'])
+print(frame.apply(f))
+
+print("*" * 40)
+format = lambda x: '%.2f' % x
+print(frame.applymap(format))
+
+print("*" * 40)
+print(frame['e'].map(format))
 
 # 5.2.7 排序和排名
+print("*" * 40)
+obj = pd.Series(range(4), index=['d', 'a', 'b', 'c'])
+print(obj)
+print(obj.sort_index())
 
+print("*" * 40)
+frame = pd.DataFrame(np.arange(8).reshape((2, 4)), index=['three', 'one'], columns=['d', 'a', 'b', 'c'])
+print(frame)
+print(frame.sort_index())
+
+print("*" * 40)
+print(frame.sort_index(axis=1, ascending=False))
+
+print("*" * 40)
+obj = pd.Series([4, 7, -3, 2])
+print(obj.sort_values())
+
+print("*" * 40)
+obj = pd.Series([4, np.nan, 7, np.nan, -3, 2])
+print(obj.sort_values())
+
+print("*" * 40)
+print(frame.sort_values(by=['a', 'b']))
+
+print("*" * 40)
+obj = pd.Series([7, -5, 7, 4, 2, 0, 4])
+print(obj)
+print(obj.rank())
+print(obj.rank(method='first'))
+
+print("*" * 40)
+print(obj.rank(ascending=False, method='max'))
+
+print("*" * 40)
+frame = pd.DataFrame({'b': [4.3, 7, -3, 2], 'a': [0, 1, 0, 1], 'c': [-2, 5, 8, -2.5]})
+print(frame)
+print(frame.rank(axis='columns'))
+
+"""
+排名中的平均关系打破方法
+"""
+
+"""
 # 5.2.8 含有重复标签的轴索引
+# 重复索引的Series
+print("*" * 40)
+obj = pd.Series(range(5), index=['a', 'a', 'b', 'b', 'c'])
+print(obj)
+
+# is_unique属性，判断标签是否唯一
+print(obj.index.is_unique)
+
+# 重复索引：一个标签索引多个条目会返回一个序列，而单个条目会返回标量值
+print("*" * 40)
+print(obj['a'])
+print(obj['c'])
+
+# DataFrame中进行索引
+print("*" * 40)
+df  = pd.DataFrame(np.random.randn(4, 3), index=['a', 'a', 'b', 'b'])
+print(df)
+print(df.loc['b'])
+"""
