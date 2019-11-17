@@ -116,7 +116,41 @@ fs()
 print(pd.qcut(data, [0, 0.1, 0.5, 0.9, 1.]))
 
 # 7.2.6 检测和过滤异常值
+fs()
+data = pd.DataFrame(np.random.randn(1000, 4))
+print(data.describe())
+
+col = data[2]
+print(col[np.abs(col) > 3])
+
+fs()
+print(data[(np.abs(data) > 3).any(1)])
+
+fs()
+data[np.abs(data) > 3] = np.sign(data) * 3
+print(data.describe())
+
+fs()
+print(np.sign(data).head())
 
 # 7.2.7 置换和随机抽样
+fs()
+df = pd.DataFrame(np.arange(5 * 4).reshape((5, 4)))
+pprint(df)
+sampler = np.random.permutation(5)
+pprint(sampler)
+
+fs()
+print(df)
+print(df.take(sampler))
+
+fs()
+print(df.sample(n=3))
+
+fs()
+choices = pd.Series([5, 7, -1, 6, 4])
+pprint(choices)
+draws = choices.sample(n=10, replace=True)
+pprint(draws)
 
 # 7.2.8 计算指标/虚拟变量
