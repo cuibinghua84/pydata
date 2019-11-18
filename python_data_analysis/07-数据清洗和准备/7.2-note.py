@@ -154,3 +154,48 @@ draws = choices.sample(n=10, replace=True)
 pprint(draws)
 
 # 7.2.8 计算指标/虚拟变量
+fs()
+df = pd.DataFrame({'key': ['b', 'b', 'a', 'c', 'a', 'b'], 'data1': range(6)})
+print(pd.get_dummies(df['key']))
+
+fs()
+dummies = pd.get_dummies(df['key'], prefix='key')
+df_with_dummy = df[['data1']].join(dummies)
+print(df_with_dummy)
+
+fs()
+mnames = ['movie_id', 'title', 'genres']
+movies = pd.read_table('D:/data/pydata_book2/datasets/movielens/movies.dat', sep='::',
+                       header=None, names=mnames, engine='python')
+pprint(movies[:10])
+
+fs()
+all_genres = []
+for x in movies.genres:
+    all_genres.extend(x.split('|'))
+genres = pd.unique(all_genres)
+pprint(genres)
+
+fs()
+zero_matrix = np.zeros((len(movies), len(genres)))
+dummies = pd.DataFrame(zero_matrix, columns=genres)
+gen = movies.genres[0]
+print(gen.split('|'))
+print(dummies.columns.get_indexer(gen.split('|')))
+
+fs()
+for i, gen in enumerate(movies.genres):
+    indices = dummies.columns.get_indexer(gen.split('|'))
+    dummies.iloc[i, indices] = 1
+
+movies_windic = movies.join(dummies.add_prefix('Genre_'))
+print(movies_windic.iloc[0])
+
+fs()
+np.random.seed(12345)
+values = np.random.rand(10)
+print(values)
+
+fs()
+bins = [0, 0.2, 0.4, 0.6, 0.8, 1]
+print(pd.get_dummies(pd.cut(values, bins)))
