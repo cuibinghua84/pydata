@@ -104,6 +104,36 @@ righth = pd.DataFrame(np.arange(12).reshape((6, 2)), index=[['Nevada', 'Nevada',
 print(lefth)
 print(righth)
 
+fs()
+print(pd.merge(lefth, righth, left_on=['key1', 'key2'], right_index=True))
+
+fs()
+print(pd.merge(lefth, righth, left_on=['key1', 'key2'], right_index=True, how='outer'))
+
+fs()
+left2 = pd.DataFrame([[1., 2.], [3., 4.], [5., 6]], index=['a', 'c', 'e'],
+                      columns=['Ohio', 'Nevada'])
+right2 = pd.DataFrame([[7., 8.], [9., 10.], [11., 12.], [13., 14]],
+                      index=['b', 'c', 'd', 'e'],
+                      columns=['Missouri', 'Alabama'])
+print(left2)
+print(right2)
+
+fs()
+print(pd.merge(left2, right2, how='outer', left_index=True, right_index=True))
+
+fs()
+print(left2.join(right2, how='outer'))
+
+fs()
+another = pd.DataFrame([[7., 8.], [9., 10.], [11., 12.], [16., 17.]], 
+                       index=['a', 'c', 'e', 'f'],
+                       columns=['New York', 'Oregon'])
+print(another)
+
+print(left2.join([right2, another]))
+print(left2.join([right2, another], how='outer'))
+
 # 8.2.3 沿轴向连接
 
 # 8.2.4 联合重叠数据
