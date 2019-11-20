@@ -23,6 +23,47 @@ fs()
 # 检查是否相等（不考虑大小写情况）、是否不相等、比较数字、检查多个条件、 检查特定值是否包含在列表中（不包含在列表中）、布尔表达式
 
 # 5.3 if语句
+age = 17
+if age >= 18:
+	print("You are old enough to vote!")
+	print("Have you registered to vote yet? ")
+else:
+	print("Sorry, you are too young to vote.")
+	print("Please register to vote as soon as you turn 18!")
+
+fs()
+age = 12
+if age < 4:
+	print("Your admission cost is $0.")
+elif age < 18:
+	print("Your admission cost is $5.")
+else:
+	print("Your admission cost is $10.")
+
+fs()
+age = 12
+if age < 4:
+	price = 0
+elif age < 18:
+	price = 5
+else:
+	price = 10
+print("Your admission cost is $" + str(price) + ".")
+
+fs()
+age = 12
+if age < 4:
+	price = 0
+elif age < 18:
+	price = 5
+elif age < 65:
+	price = 10
+else:
+	price = 5
+print("Your admission cost is $" + str(price) + ".")
+
+fs()
+
 
 
 # 5.4 使用if语句处理列表
