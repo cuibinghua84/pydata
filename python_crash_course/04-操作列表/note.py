@@ -72,16 +72,35 @@ fs()
 my_foods = ['pizza', 'falafel', 'carrot cake']
 friend_foods = my_foods[:]
 
+my_foods.append('cannoli')
+friend_foods.append('ice cream')
 
+print("My favorite foods are:")
+print(my_foods)
+print("\nMy friend's favorite foods are: ")
+print(friend_foods)
 
 # 4.5 元组
+fs()
+dimensions = (200, 50)
+print(dimensions[0])
+print(dimensions[1])
+
+fs()
+for dimension in dimensions:
+	print(dimension)
+
+fs()
+dimensions = (200, 50)
+print("Original dimensions: ")
+for dimension in dimensions:
+	print(dimension)
+dimensions = (400, 100)
+print("\nModified dimensions: ")
+for dimension in dimensions:
+	print(dimension)
 
 # 4.6 设置代码格式
-
-
-
-
-
 
 """
 1、如何高效地处理列表中的元素
@@ -90,5 +109,4 @@ friend_foods = my_foods[:]
 4、如果通过切片来使用列表的一部分和复制列表
 5、学习元组
 6、如何设置格式
-
 """
