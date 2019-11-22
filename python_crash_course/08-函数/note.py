@@ -106,7 +106,6 @@ print(musician)
 
 fs()
 
-
 # def get_formatted_name_three(first_name, last_name):
 #     full_name = first_name + ' ' + last_name
 #     return full_name.title()
@@ -126,22 +125,97 @@ fs()
 
 # 8.4 传递列表
 fs()
+
+
 def greet_users(names):
-	for name in names:
-		msg = "Hello, " + name.title() + "!"
-		print(msg)
+    for name in names:
+        msg = "Hello, " + name.title() + "!"
+        print(msg)
+
+
 username = ['hannah', 'ty', 'margot']
 greet_users(username)
 
 # 在函数中修改列表
 fs()
+unprinted_designs = ['iphone case', 'robot pendant', 'dodecahedron']
+completed_models = []
+while unprinted_designs:
+    current_design = unprinted_designs.pop()
+    print("Printing model: " + current_design.title())
+    completed_models.append(current_design)
+print("\nThe following models have been printed: ")
+for completed_model in completed_models:
+    print(completed_model.title())
 
+fs()
+
+
+def print_models(unprinted_designs, completed_models):
+    while unprinted_designs:
+        current_design = unprinted_designs.pop()
+        print("Printing model: " + current_design.title())
+        completed_models.append(current_design)
+
+
+def show_completed_models(completed_models):
+    print("\nThe following models have been printed: ")
+    for completed_model in completed_models:
+        print(completed_model)
+
+
+unprinted_designs = ['iphone', 'robot pendant', 'dodecahedron']
+completed_models = []
+print_models(unprinted_designs, completed_models)
+show_completed_models(completed_models)
 
 # 8.5 传递任意数量的实参
+fs()
 
+
+def make_pizza(size, *toppings):
+    # print(toppings)
+    # print("Making a pizza with the following toppings: ")
+    print("\nMaking a " + str(size) + "-inch pizza with the following toppings")
+    for topping in toppings:
+        print("- " + topping)
+
+
+make_pizza(16, 'pepperoni')
+make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+
+fs()
+
+
+def build_profile(first, last, **user_info):
+    profile = {}
+    profile['first_name'] = first
+    profile['last_name'] = last
+    for key, value in profile.items():
+        profile[key] = value
+    return profile
+
+
+user_profile = build_profile('albert', 'einstein', location='princeton', field='physics')
+print(user_profile)
 
 # 8.6 将函数存储在模块中
+"""
+导入整个模块
+import pizza
 
+导入特定函数
+from pizza import make_pizza
+
+as给函数命名
+from pizza import make_pizza as mp
+
+as给模块命名
+import pizza as p
+
+导入所有函数
+from pizza import *
+"""
 
 # 8.7 函数编写指南
 

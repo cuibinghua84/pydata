@@ -7,8 +7,6 @@
 
 
 class Car():
-    """一次模拟汽车的简单尝试"""
-
     def __init__(self, make, model, year):
         self.make = make
         self.model = model
@@ -32,19 +30,27 @@ class Car():
         self.odometer_reading += miles
 
 
-class Battery():
-    """一次模拟电动汽车电瓶的简单尝试"""
+class ElectricCar(Car):
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+        self.battery = Battery()
+        self.battery_size = 70
 
+    def describe_battery(self):
+        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+
+    def fill_gas_tank(self):
+        print("This car doesn't need a gas tank!")
+
+
+class Battery():
     def __init__(self, battery_size=70):
-        """初始化电瓶的属性"""
         self.battery_size = battery_size
 
     def describe_battery(self):
-        """打印一条描述电瓶容量的消息"""
         print("This car has a " + str(self.battery_size) + "-kWh battery.")
 
     def get_range(self):
-        """打印一条消息，指出电瓶的续航里程"""
         if self.battery_size == 70:
             range = 240
         elif self.battery_size == 85:
@@ -54,31 +60,8 @@ class Battery():
         print(message)
 
 
-class ElectricCar(Car):
-    """电动车的独特之处"""
-
-    def __init__(self, make, model, year):
-        """初始化父类的属性"""
-        super().__init__(make, model, year)
-        # 给子类定义属性和方法
-        self.battery_size = 70
-        self.battery = Battery()
-
-    # 给子类定义属性和方法
-    def describe_battery(self):
-        """打印一条描述电瓶容量的消息"""
-        print("This car has a " + str(self.battery_size) + "-kWh battery.")
-
-    # 重写父类的方法
-    def fill_gas_tank(self):
-        """电动车没有邮箱"""
-        print("This car doesn't need a gas tank!")
-
-
-my_tesla = ElectricCar('tesla', 'model s', 2019)
+my_tesla = ElectricCar('tesla', 'model s', 2020)
 print(my_tesla.get_descriptive_name())
 my_tesla.describe_battery()
-my_tesla.fill_gas_tank()
 my_tesla.battery.describe_battery()
 my_tesla.battery.get_range()
-
