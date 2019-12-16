@@ -1,84 +1,236 @@
 # -*- coding: utf-8 -*-
+"""
+@author: 东风
+@file: note.py
+@time: 2019/12/16 10:17
+"""
 
-import numpy as np
 from pprint import pprint
-
-"""
-NumPy：（Numerical Python）是目前Python数值计算中最为重要的基础包
-    ndarray，一种高效多维数组，提供了基于数组的便捷算术操作以及灵活的广播功能
-    对所有数据进行快速的矩阵计算，并对内存映射文件进行操作
-    线性代数、随机数生成以及傅里叶变换功能
-    用于连接NumPy与C、C++和FORTRAN语言类库C语言API
-
-作者关注的内容
-    1、数据处理、清洗、构造子集、过滤、变换以及其他计算中进行快速的向量化计算
-    2、常见的数组算法、比如sort、unique以及set操作等
-    3、高效的描述性统计和聚合/概述数据
-    4、数据排列和相关数据操作，例如对异构数据进行merge和join
-    5、使用数组表达式来表明条件逻辑，代替if-elif-else条件分支的循环
-    6、分组数据操作(聚合、变换以及函数式操作)
-NumPy的重要性
-    1、它的设计对于包含有大量数组的数据非常有效
-    2、NumPy在内部将数据存储在连续的内存块上
-    3、可以针对全量数据进行复杂计算而不需要些Python循环
-
-1、NumPy ndarray: 多维数组对象
-2、通用函数：快速的逐元素数组函数
-3、使用数组进行面向数组编程
-4、使用数组进行文件输入和输出
-5、线性代数
-6、伪随机数生成
-7、示例：随机漫步
-8、本章小结
-9、
-"""
-
-# NumPy数据包含100万个整数和同样数据内容的Python列表进行比较
 import numpy as np
-from pprint import pprint
+
+
+def fs():
+    print("*" * 50)
 
 
 """
-1 NumPy本身并不提供建模和科学函数，理解NumPy的数组以及基于数组的计算将帮助你更高效地使用基于数组的工具
-2 NumPy其一重要的原因：它的设计对于含有大量数组的数据非常有效
-3 NumPy在内部将数据存储在连续的内存卡上，这与其他的Python内建数据结构是不同的
-4 NumPy可以针对全量数组进行复杂计算而不需要写Python循环
-"""
+In [1]: import numpy as np
 
-# my_arr = np.array(1000000)
-# my_list = list(range(1000000))
+In [2]: my_arr = np.arange(1000000)
+In [3]: my_list = list(range(1000000))
 
-"""
-%time for _ in range(10): my_arr2 = my_arr * 2
-Wall time: 0 ns
-%time for _ in range(10): my_list2 = [x * 2 for x in my_list]
-Wall time: 1.85 s
+In [4]: %time for _ in range(10): my_arr2 = my_arr * 2
+Wall time: 18 ms
+
+In [5]: %time for _ in range(10): my_list2 = [x * 2 for x in my_list]
+Wall time: 930 ms
 """
 
 # 4.1 NumPy ndarray：多维数组对象
 
-# 5 ndarray是Python中一个快速、灵活的大型数据集容器。数组允许你使用类似于标量的操作语法在整块数据上进行数学计算
+# 生成随机数组
 data = np.random.randn(2, 3)
-# pprint(data)
-# pprint(data * 10)
-# print(data + data)
+pprint(data)
+fs()
 
-# 6 一个ndarray是一个通用的多维同类数据容器（包含的每一个元素均为相同类型）
-# 7 每一个数组都有一个shape属性，用来表征数组每一维度的数量；每一个数组都有一个dtype属性，用来描述数组的数据类型
+# 给data加上一个数学操作
+# 所有的元素同时乘以10
+pprint(data * 10)
+fs()
+
+# 数组中的对应元素进行相加
+pprint(data + data)
+fs()
+
+# shape属性：用来表征数组每一维度的数量
+# dtype属性：用来描述数组的数据类型
 print(data.shape)
 print(data.dtype)
 
+fs()
 # 4.1.1 生成ndarray
-# 8 生成数组最简单的方式就是使用array函数
-
+# 使用array函数
 data1 = [6, 7.5, 8, 0, 1]
 arr1 = np.array(data1)
-print(arr1)
+pprint(arr1)
 
+# 嵌套序列，自动转换成多维数组
+data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
+arr2 = np.array(data2)
+pprint(arr2)
 
+fs()
+# ndim和shape属性
+print(arr2.ndim)
+print(arr2.shape)
+print(arr1.dtype)
+print(arr2.dtype)
 
+fs()
+# zeros创建一次性全是0数组
+pprint(np.zeros(10))
+pprint(np.zeros((3, 6)))
+# ones一次性创造全是1数组
+pprint(np.ones(10))
+pprint(np.ones((3, 6)))
+# empty创造一个没有初始化数值的数组
+# 要创建高维数组，需要为shape传递一个元组
+pprint(np.empty((2, 3, 2)))
 
+fs()
+# arange是Python内建函数range的数组版
+pprint(np.arange(15))
 
+# NumPy专注于数值计算，如果没有特别指明的话，默认的数据类型是float64
+# 数组生成函数
+"""
+array
+asarray
+arange
+"""
 
+# 4.1.2 ndarray的数据类型
+fs()
+arr1 = np.array([1, 2, 3], dtype=np.float64)
+arr2 = np.array([1, 2, 3], dtype=np.int32)
+print(arr1.dtype)
+print(arr2.dtype)
+"""
+NumPy数据类型
+"""
 
+fs()
+# astype显式地转换数组的数据类型
+# 整数转成浮点数
+arr = np.array([1, 2, 3, 4, 5])
+print(arr.dtype)
+float_arr = arr.astype(np.float64)
+print(float_arr.dtype)
 
+# 浮点数转成整数，小数点后的部分将被取消
+fs()
+arr = np.array([3.7, -1.2, -2.6, 0.5, 12.9, 10.1])
+pprint(arr)
+print(arr.dtype)
+pprint(arr.astype(np.int32))
+
+# 如果一个数组，里面的元素都是表达数字含义的字符串，可通过astype将字符串转换为数字
+numeric_strings = np.array(['1.25', '-9.6', '42'], dtype=np.string_)
+pprint(numeric_strings.astype(float))
+
+fs()
+# NumPy可以使用相同别名来表征与Python精度相同的Python数据类型
+int_array = np.arange(10)
+# pprint(int_array)
+calibers = np.array([.22, .270, .357, .380, .44, .50], dtype=np.float64)
+# pprint(calibers)
+pprint(int_array.astype(calibers.dtype))
+print(calibers.dtype)
+
+fs()
+# 使用类型代码传入数据类型
+empty_uint32 = np.empty(8, dtype='u4')
+pprint(empty_uint32)
+# 使用astype时总是生成一个新的数组，即使你传入的dtype与之前一样
+
+# 4.1.3 NumPy数组算术
+fs()
+# 数组之所以重要是因为它允许你进行批量操作而无须任何for循环，即向量化
+# 任何在两个等尺寸数组间的算术操作都应用了逐元素操作的方式
+arr = np.array([[1., 2., 3.], [4., 5., 6.]])
+pprint(arr)
+pprint(arr * arr)
+pprint(arr - arr)
+
+# 带有标量计算的算术操作，会把计算参数传递给数组的每一个元素
+fs()
+pprint(1 / arr)
+pprint(arr ** 0.5)
+
+# 同尺寸数组之间的比较，会产生一个布尔值数组
+fs()
+arr2 = np.array([[0., 4., 1.], [7., 2., 12.]])
+pprint(arr2)
+pprint(arr2 > arr)
+
+# 不同尺寸的数组间的操作，将会用到广播特性
+
+fs()
+# 4.1.4 基础索引与切片
+arr = np.arange(10)
+pprint(arr)
+pprint(arr[5])
+pprint(arr[5:8])
+arr[5:8] = 12
+pprint(arr)
+
+# 数组的切片是原数组的视图，即数据并不是被复制了，任何对于视图的修改都会反映到原数组上
+fs()
+arr_slice = arr[5:8]
+pprint(arr_slice)
+
+# 改变arr_slice，变也恩惠体现在原数组上
+arr_slice[1] = 12345
+pprint(arr)
+
+# 不写切片值的[:]将会引用数组的所有值
+arr_slice[:] = 64
+pprint(arr)
+
+fs()
+# 二维数组中，每个索引值对应的元素不再是一个值，而是一个一维数组
+arr2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+pprint(arr2d[2])
+pprint(arr2d[0][2])
+
+fs()
+# 多维数组，返回的对象将是一个降低一个维度的数组
+arr3d = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+pprint(arr3d)
+
+pprint(arr3d[0])
+
+fs()
+# 标量和数组都可以传递给arr3d[0]
+old_values = arr3d[0].copy()
+pprint(old_values)
+arr3d[0] = 42
+pprint(arr3d)
+arr3d[0] = old_values
+pprint(arr3d)
+
+fs()
+# 返回一个一维数组
+pprint(arr3d[1, 0])
+
+fs()
+# 以上步骤分解
+x = arr3d[1]
+pprint(x)
+pprint(x[0])
+
+fs()
+# 4.1.4.1 数组的切片索引
+pprint(arr)
+pprint(arr[1:6])
+
+# 二维数组切片
+fs()
+pprint(arr2d)
+pprint(arr2d[:2])
+pprint(arr2d[:2, 1:])
+
+fs()
+# 索引和切片混合
+pprint(arr2d)
+# 第二行前两列
+pprint(arr2d[1, :2])
+# 第三列前两行
+pprint(arr2d[:2, 2])
+# 单独冒号
+pprint(arr2d[:, 1:])
+
+fs()
+# 对切片赋值时，整个切片都会重新赋值
+arr2d[:2, 1:] = 0
+pprint(arr2d)
