@@ -257,13 +257,151 @@ print(pd.concat([df1, df2], axis=1, keys=['leval1', 'level2'], sort=True))
 fs()
 print(pd.concat({'level1': df1, 'level2': df2}, axis=1, sort=True))
 
+fs()
+print(pd.concat([df1, df2], axis=1, keys=['level1', 'level2'],
+                names=['upper', 'lower'], sort=True))
+
+fs()
+df1 = DataFrame(np.random.randn(3, 4), columns=['a', 'b', 'c', 'd'])
+df2 = DataFrame(np.random.randn(2, 3), columns=['b', 'd', 'a'])
+print(df1)
+print(df2)
+print(pd.concat([df1, df2], ignore_index=True, sort=True))
+"""
+concat函数的参数
+objs
+axis
+join
+join_axes
+keys
+leels
+"""
+
+fs()
+df1 = DataFrame({'a': [1., np.nan, 5., np.nan],
+                 'b': [np.nan, 2., np.nan, 6.],
+                 'c': range(2, 18, 4)})
+df2 = DataFrame({'a': [5., 4., np.nan, 3., 7.],
+                 'b': [np.nan, 3., 4., 6., 8.]})
+print(df1)
+print(df2)
+print(df1.combine_first(df2))
 
 # 8.2.4 联合重叠数据
+fs()
+a = Series([np.nan, 2.5, 0.0, 3.5, 4.5, np.nan],
+           index=['f', 'e', 'd', 'c', 'b', 'a'])
+b = Series([0., np.nan, 2., np.nan, np.nan, 5.],
+           index=['a', 'b', 'c', 'd', 'e', 'f'])
+print(a)
+print(b)
+print(pd.isnull(a))
+print(np.where(pd.isnull(a), b, a))
 
 # 8.3 重塑和透视
-
 # 8.3.1 使用多层索引进行重塑
+fs()
+data = DataFrame(np.arange(6).reshape((2, 3)),
+                 index=pd.Index(['Ohio', 'Colorado'], name='state'),
+                 columns=pd.Index(['one', 'two', 'three'],
+                                  name='number'))
+print(data)
+
+fs()
+result = data.stack()
+print(result)
+
+fs()
+print(result.unstack())
+
+fs()
+print(result.unstack(0))
+
+fs()
+print(result.unstack('state'))
+
+fs()
+s1 = Series([0, 1, 2, 3], index=['a', 'b', 'c', 'd'])
+s2 = Series([4, 5, 6], index=['c', 'd', 'e'])
+data2 = pd.concat([s1, s2], keys=['one', 'two'])
+print(s1)
+print(s2)
+print(data2)
+print(data2.unstack())
+
+fs()
+print(data2.unstack())
+
+fs()
+print(data2.unstack().stack())
+
+fs()
+print(data2.unstack().stack(dropna=False))
+
+fs()
+df = DataFrame({'left': result, 'right': result +5},
+               columns=pd.Index(['left', 'right'], name='side'))
+print(df)
+
+fs()
+print(df.unstack('state'))
+
+fs()
+print(df.unstack('state').stack('side'))
 
 # 8.3.2 将“长”透视为“宽”
+fs()
+data = pd.read_csv('D:/data/pydata_book2/examples/macrodata.csv')
+print(data.head())
+
+fs()
+periods = pd.PeriodIndex(year=data.year, quarter=data.quarter, name='data')
+columns = pd.Index(['realgdp', 'infl', 'unemp'], name='item')
+data = data.reindex(columns=columns)
+data.index = periods.to_timestamp('D', 'end')
+ldata = data.stack().reset_index().rename(columns={0: 'value'})
+print(ldata[:10])
+
+fs()
+pivoted = ldata.pivot('data', 'item', 'value')
+print(pivoted)
+
+fs()
+ldata['value2'] = np.random.randn(len(ldata))
+print(ldata[:10])
+
+fs()
+pivoted = ldata.pivot('data', 'item')
+print(pivoted[:5])
+print(pivoted['value'][:5])
+
+fs()
+unstacked = ldata.set_index(['data', 'item']).unstack('item')
+print(unstacked[:7])
 
 # 8.3.3 将“宽”透视为“长”
+fs()
+df = DataFrame({'key': ['foo', 'bar', 'baz'],
+                'A': [1, 2, 3],
+                'B': [4, 5, 6],
+                'C': [7, 8, 9]})
+print(df)
+
+fs()
+melted = pd.melt(df, ['key'])
+print(melted)
+
+fs()
+reshaped = melted.pivot('key', 'variable', 'value')
+print(reshaped)
+
+fs()
+print(reshaped.reset_index())
+
+fs()
+print(pd.melt(df, id_vars=['key'], value_vars=['A', 'B']))
+
+fs()
+print(pd.melt(df, value_vars=['A', 'B', 'C']))
+
+print(pd.melt(df, value_vars=['key', 'A', 'B']))
