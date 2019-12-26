@@ -34,11 +34,72 @@ fs()
 means = df['data1'].groupby([df['key1'], df['key2']]).mean()
 print(means)
 
+fs()
+print(means.unstack())
+
+fs()
+states = np.array(['Ohio', 'California', 'California', 'Ohio', 'Ohio'])
+years = np.array([2005, 2005, 2006, 2005, 2006])
+print(states)
+print(years)
+print(df['data1'].groupby([states, years]).mean())
+
+fs()
+print(df)
+print(df.groupby('key1').mean())
+
+print(df.groupby(['key1', 'key2']).mean())
+
+fs()
+print(df.groupby(['key1', 'key2']).size())
+
 # 10.1.1 遍历各分组
+fs()
+# print(df.groupby('key1').mean())
+# print(df.groupby('key1').size())
+for name, group in df.groupby('key1'):
+    print(name)
+    print(group)
+
+fs()
+print(df)
+for (key1, key2), group in df.groupby(['key1', 'key2']):
+    print(key1, key2)
+    print(group)
+
+fs()
+pieces = dict(list(df.groupby('key1')))
+print(pieces['b'])
+
+fs()
+print(df.dtypes)
+grouped = df.groupby(df.dtypes, axis=1)
+# print(grouped)
+for dtype, group in grouped:
+    print(dtype)
+    print(group)
 
 # 10.1.2 选择一列或所有列的子集
+fs()
+print(df)
+print(df.groupby(['key1', 'key2'])[['data2']].mean())
+
+fs()
+s_grouped = df.groupby(['key1', 'key2'])['data2']
+print(s_grouped)
+print(s_grouped.mean())
 
 # 10.1.3 使用字典或Series分组
+fs()
+people = DataFrame(np.arange(25).reshape((5, 5)),  # np.random.randn(5, 5),
+                   columns=['a', 'b', 'c', 'd', 'e'],
+                   index=['Joe', 'Steve', 'Wes', 'Jim', 'Travis'])
+print(people)
+fs()
+people.iloc[2:3, [1, 2]] = np.nan
+print(people)
+
+
 
 # 10.1.4 使用函数分组
 
