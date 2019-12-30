@@ -6,7 +6,7 @@
 """
 
 # https://blog.csdn.net/weixin_43998473/article/details/86286299
-
+# pip install mysqlclient-1.4.6-cp37-cp37m-win_amd64.whl
 import mysql.connector
 
 # 连接数据库

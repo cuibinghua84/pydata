@@ -6,6 +6,7 @@
 """
 
 # https://www.cnblogs.com/m0488/p/9442125.html
+# pip install pymysql
 import pymysql
 
 conn = pymysql.connect(user='root', password='', database='test', charset='utf8')
